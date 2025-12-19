@@ -43,7 +43,7 @@ def get_cart(cart_data: Dict[int, int], db: Session = Depends(get_db)):
     return service.get_cart_details(cart_data)
 
 
-@router.post("/update", status_code=status.HTTP_200_OK)
+@router.put("/update", status_code=status.HTTP_200_OK)
 def update_cart_item(request: UpdateCartRequest, db: Session = Depends(get_db)):
     service = CartService(db)
     item = CartItemUpdate(product_id=request.product_id, quantity=request.quantity)
@@ -51,7 +51,7 @@ def update_cart_item(request: UpdateCartRequest, db: Session = Depends(get_db)):
     return {"cart": updated_cart}
 
 
-@router.post("/remove/{product_id}", status_code=status.HTTP_200_OK)
+@router.delete("/remove/{product_id}", status_code=status.HTTP_200_OK)
 def remove_from_cart(
     product_id: int, request: RemoveFromCartRequest, db: Session = Depends(get_db)
 ):
